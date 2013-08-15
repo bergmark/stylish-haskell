@@ -41,6 +41,8 @@ steps:
       #
       # - compact: A more compact style.
       #
+      # - utrecht: One LANGUAGE declaration with commas at the start of each line.
+      #
       # Default: vertical.
       style: vertical
 

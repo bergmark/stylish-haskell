@@ -180,6 +180,7 @@ parseLanguagePragmas config o = LanguagePragmas.step
     styles =
         [ ("vertical", LanguagePragmas.Vertical)
         , ("compact",  LanguagePragmas.Compact)
+        , ("utrecht",  LanguagePragmas.Utrecht)
         ]
 
 

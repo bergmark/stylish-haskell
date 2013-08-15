@@ -23,6 +23,9 @@ tests = testGroup "Language.Haskell.Stylish.Step.LanguagePragmas.Tests"
     , testCase "case 03" case03
     , testCase "case 04" case04
     , testCase "case 05" case05
+    , testCase "case 06" case06
+    , testCase "case 07" case07
+    , testCase "case 08" case08
     ]
 
 
@@ -112,4 +115,64 @@ case05 = expected @=? testStep (step 80 Vertical False) input
         , "#if __GLASGOW_HASKELL__ >= 702"
         , "{-# LANGUAGE Trustworthy #-}"
         , "#endif"
+        ]
+
+
+--------------------------------------------------------------------------------
+case06 :: Assertion
+case06 = expected @=? testStep (step 80 Utrecht False) input
+  where
+    input = unlines
+        [ "{-# LANGUAGE OverloadedStrings #-}"
+        , ""
+        , "main = undefined"
+        ]
+
+    expected = unlines
+        [ "{-# LANGUAGE"
+        , "    OverloadedStrings"
+        , "  #-}"
+        , ""
+        , "main = undefined"
+        ]
+
+
+--------------------------------------------------------------------------------
+case07 :: Assertion
+case07 = expected @=? testStep (step 80 Utrecht False) input
+  where
+    input = unlines
+        [ "{-# LANGUAGE TemplateHaskell, OverloadedStrings #-}"
+        , ""
+        , "main = undefined"
+        ]
+
+    expected = unlines
+        [ "{-# LANGUAGE"
+        , "    OverloadedStrings"
+        , "  , TemplateHaskell"
+        , "  #-}"
+        , ""
+        , "main = undefined"
+        ]
+
+
+--------------------------------------------------------------------------------
+case08 :: Assertion
+case08 = expected @=? testStep (step 80 Utrecht False) input
+  where
+    input = unlines
+        [ "{-# LANGUAGE OverloadedStrings, TemplateHaskell, RecordWildCards #-}"
+        , ""
+        , "main = undefined"
+        ]
+
+    expected = unlines
+        [ "{-# LANGUAGE"
+        , "    OverloadedStrings"
+        , "  , RecordWildCards"
+        , "  , TemplateHaskell"
+        , "  #-}"
+        , ""
+        , "main = undefined"
         ]
